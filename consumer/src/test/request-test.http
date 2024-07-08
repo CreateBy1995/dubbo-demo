@@ -1,2 +1,15 @@
-###
-GET http://localhost:8088/consumer/create
+### 客户端并发测试
+GET http://localhost:8088/consumer/active?
+    sleepTime=600000
+
+
+### 正常调用
+GET http://localhost:8088/consumer/normal
+
+### 同步休眠
+GET http://localhost:8088/consumer/sleep?
+    sleepTime=5000
+
+### 异步调用
+GET http://localhost:8088/consumer/async?
+    sleepTime=5000
