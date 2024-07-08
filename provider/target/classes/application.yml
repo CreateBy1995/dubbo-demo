@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: springboot-dubbo-provicer
+dubbo:
+  protocol:
+    port: 21883
+    name: dubbo
+  registry:
+    address: nacos://121.40.24.147:8848
