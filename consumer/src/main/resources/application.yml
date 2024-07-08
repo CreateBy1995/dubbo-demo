@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: springboot-dubbo-consuer
+seata:
+  application-id: springboot-dubbo-seata-order
+  tx-service-group: order_tx_group
+dubbo:
+  protocol:
+    port: 20994
+    name: dubbo
+  registry:
+    address: nacos://121.40.24.147:8848
+server:
+  port: 8088
