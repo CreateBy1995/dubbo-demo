@@ -1,8 +1,12 @@
 package pers.example.consumer.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.ApplicationConfig;
+import org.apache.dubbo.config.ReferenceConfig;
+import org.apache.dubbo.config.RegistryConfig;
 import org.apache.dubbo.config.annotation.Method;
 import org.apache.dubbo.config.annotation.Reference;
+import org.apache.dubbo.rpc.service.GenericService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,5 +72,36 @@ public class ConsumerController {
         log.info("consumerController start normal");
         sleepFacade.sleep(-1L);
         log.info("consumerController finish normal");
+    }
+
+    /**
+     * 泛化调用
+     */
+    @GetMapping("generic")
+    public void generic() {
+        // 创建服务引用配置
+        ReferenceConfig<GenericService> referenceConfig = new ReferenceConfig<>();
+        referenceConfig.setApplication(new ApplicationConfig("springboot-dubbo-provicer"));
+        RegistryConfig registryConfig = new RegistryConfig();
+        registryConfig.setPort(8848);
+        registryConfig.setAddress("39.104.70.173");
+        registryConfig.setProtocol("nacos");
+        referenceConfig.setRegistry(registryConfig);
+        referenceConfig.setInterface("pers.example.provider.service.GenericSleepFacade");  // 设置接口名
+        referenceConfig.setGeneric("true");           // 启用泛化调用
+
+        // 获取泛化服务实例
+        GenericService genericService = referenceConfig.get();
+
+        // 调用服务
+        // 参数类型数组，方法的参数类型
+        String[] parameterTypes = new String[]{"java.lang.Long"};
+
+        // 参数值数组，传入的实际参数
+        Object[] args = new Object[]{1000};
+
+        log.info("consumerController start generic");
+        Object result = genericService.$invoke("sleep", parameterTypes, args);
+        log.info("consumerController finish generic, result:{}", result);
     }
 }

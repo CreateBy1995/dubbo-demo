@@ -6,4 +6,4 @@ dubbo:
     port: 21883
     name: dubbo
   registry:
-    address: nacos://121.40.24.147:8848
+    address: nacos://39.104.70.173:8848

@@ -9,6 +9,6 @@ dubbo:
     port: 20994
     name: dubbo
   registry:
-    address: nacos://121.40.24.147:8848
+    address: nacos://39.104.70.173:8848
 server:
   port: 8088

@@ -13,3 +13,6 @@ GET http://localhost:8088/consumer/sleep?
 ### 异步调用
 GET http://localhost:8088/consumer/async?
     sleepTime=5000
+
+### 泛化调用
+GET http://localhost:8088/consumer/generic
